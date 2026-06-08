@@ -1,0 +1,97 @@
+comprehension sujet :
+-disorder metric: on calcule ça puis en fonction du résultat
+(entre 0 et 1) on choisit quel niveau de complexité appliquer
+- "the stack a formatted as a list of integers (the first argument is the top of the
+stack)" --> signifie le haut de la stack, donc le dernier él de la liste
+donc pour avoir la size de la stack, il faudrait remonter au 1er él de la list
+
+decoupage projet cgpt
+
+1. Parsing et validation
+
+Objectif : transformer les arguments en une pile A valide.
+
+Sous-tâches :
+
+Lire les arguments (./push_swap 3 2 1 ou "3 2 1").
+Vérifier que chaque valeur est un entier valide.
+Détecter les doublons.
+Gérer les erreurs (Error\n).
+2. Structure des piles
+
+Objectif : représenter les piles A et B.
+
+Sous-tâches :
+
+Choisir une structure (souvent liste chaînée).
+Fonctions de base :
+création d'un nœud
+ajout en fin/début
+libération mémoire
+3. Implémentation des opérations
+
+Objectif : reproduire exactement les instructions du sujet.
+
+Sous-tâches :
+
+sa, sb, ss
+pa, pb
+ra, rb, rr
+rra, rrb, rrr
+
+Teste chaque opération séparément avant d'aller plus loin.
+
+4. Vérification de l'état
+
+Objectif : savoir où en est le tri.
+
+Sous-tâches :
+
+is_sorted()
+taille de pile
+trouver min/max
+position d'un élément
+5. Cas simples
+
+Objectif : réussir les petites entrées.
+
+Sous-tâches :
+
+tri de 2 nombres
+tri de 3 nombres
+tri de 4 ou 5 nombres
+
+C'est souvent la première version fonctionnelle du projet.
+
+6. Algorithme principal
+
+Objectif : gérer les grandes listes.
+
+Méthodes populaires :
+
+Indexation / simplification des valeurs.
+Radix sort (la plus simple et la plus utilisée).
+Ou algorithmes plus optimisés (Turk, K sort, etc.).
+
+Pour commencer, vise Radix Sort.
+
+7. Optimisation et tests
+
+Objectif : réduire le nombre d'opérations et éviter les bugs.
+
+Sous-tâches :
+
+Tester avec 100 nombres.
+Tester avec 500 nombres.
+Vérifier les fuites mémoire (valgrind).
+Comparer ton nombre d'instructions avec les exigences du sujet.
+Ordre de développement recommandé
+Parsing
+Structure des piles
+Opérations (sa, pb, ra, ...)
+is_sorted
+Tri de 3 éléments
+Tri de 5 éléments
+Indexation des nombres
+Radix sort
+Tests + fuites mémoire
