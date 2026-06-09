@@ -76,22 +76,36 @@ int     is_digit(char *stack)
     return (0);
 }
 
-int is_duplicata(char **stack, int argc)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    int	i;
-    int j;
+	int	i;
 
-    i = 1;
-    while (i < argc - 1)
-    {
-        j = i + 1;
-        while (j < argc)
-        {
-            if (ft_atoi(stack[i]) == ft_atoi(stack[j]))
-                return (1);
-            j++;
-        }
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
+}
+
+int	is_duplicata(char **argv, int argc)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < argc - 1)
+	{
+		j = i + 1;
+		while (j < argc)
+		{
+			if (ft_strcmp(argv[i], argv[j]) == 0)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
