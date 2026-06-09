@@ -51,6 +51,8 @@ void put_error(void);
 float compute_disorder_lst(t_stack *a, int lst_size);
 float compute_disorder_tab(t_stack *a, int lst_size);
 
+void    algo_simple(t_stack *a, t_stack *b);
+
 int main(int argc, char **argv);
 
 #endif

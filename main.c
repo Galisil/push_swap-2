@@ -10,6 +10,7 @@ int main(int argc, char **argv)
     t_stack *b;
     t_node  *node;
     int i;
+    int j;
     int val;
 
     a = malloc(sizeof(t_stack));
@@ -27,6 +28,22 @@ int main(int argc, char **argv)
             ft_add_back(a, node);
         i++;
     }
-    printf("DISORDER_METRIC = %lf\n", compute_disorder_tab(a, argc));
+
+//test algo_simple
+    j = 1;
+    printf("AVANT\n");
+    while (argv[j])
+    {
+        printf("argv[j] = %d\n", ft_atoi(argv[j]));
+        j++;
+    }
+    j = 1;
+    printf("APRES\n");
+    algo_simple(a, b);
+    while (argv[j])
+    {
+        printf("argv[i] = %d\n", ft_atoi(argv[j]));
+        j++;
+    }
     return 0;
 }
