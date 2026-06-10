@@ -9,41 +9,30 @@ int main(int argc, char **argv)
     t_stack *a;
     t_stack *b;
     t_node  *node;
+    t_node  *tmp;
     int i;
-    int j;
-    int val;
 
     a = malloc(sizeof(t_stack));
     b = malloc(sizeof(t_stack));
     if (!a || !b)
         return (1);
-    i = 1;
-    while (i < argc)
-    {
-        val = ft_atoi(argv[i]);
-        node = ft_new_node(val);
-        if (i == 1)
-            ft_add_front(a, node);
-        else
-            ft_add_back(a, node);
-        i++;
-    }
+    ft_create_stack(argv, a, argc);
+    ft_create_stack(NULL, b, argc);
 
-//test algo_simple
-    j = 1;
-    printf("AVANT\n");
-    while (argv[j])
+    //test algo_simple
+    tmp = a->start;
+    while (tmp)
     {
-        printf("argv[j] = %d\n", ft_atoi(argv[j]));
-        j++;
+        printf("valeur node = %d\n", tmp->valeur);
+        tmp = tmp->next;
     }
-    j = 1;
-    printf("APRES\n");
     algo_simple(a, b);
-    while (argv[j])
+    tmp = a->start;
+    printf("\nAPRES\n");
+    while (tmp)
     {
-        printf("argv[i] = %d\n", ft_atoi(argv[j]));
-        j++;
+        printf("valeur node = %d\n", tmp->valeur);
+        tmp = tmp->next;
     }
     return 0;
 }
