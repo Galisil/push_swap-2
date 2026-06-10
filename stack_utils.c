@@ -7,6 +7,7 @@ void ft_add_front(t_stack *stack, t_node *node)
         stack->start = node;
         stack->end = node;
         node->prev = NULL;
+        node->next = NULL;
         stack->size++;
     }
     else
@@ -79,19 +80,26 @@ t_node *ft_remove_last(t_stack *stack)
     }
 }
 
-void ft_create_stack(int *val, t_stack *stack, int size)
+void ft_create_stack(char **argv, t_stack *stack, int size)
 {
     int i;
+    int val;
+    t_node  *node;
 
     stack->size = 0;
     stack->end = NULL;
     stack->start = NULL;
-    i = 0;
-
+    i = 1;
+    if (!argv)
+        return;
     while (i < size)
     {
-        t_node *node = ft_new_node(val[i]);
-        ft_add_back(stack, node);
+        val = ft_atoi(argv[i]);
+        node = ft_new_node(val);
+        if (i == 1)
+            ft_add_front(stack, node);
+        else
+            ft_add_back(stack, node);
         i++;
     }
 }
