@@ -1,36 +1,8 @@
 #include "push_swap.h"
 
-int	ft_strlen(const char *s)
+long int	ft_atoi(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int *put_value(int o, char **nbr)
-{
-    int *val;
-    int i;
-
-    i = 0;
-    val = malloc(sizeof(int) * (o - 1));
-    if (!val)
-        return NULL;
-    while (i  < o - 1)
-    {
-        val[i] = ft_atoi(nbr[i + 1]);
-        i++;
-    }
-
-    return val;
-}
-
-int	ft_atoi(char *str)
-{
-	int	sum;
+	long int	sum;
 	int	i;
 	int	sign;
 
@@ -39,12 +11,13 @@ int	ft_atoi(char *str)
 
 	sign = 1;
 
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	while (str[i] == ' ' ||(str[i] >= 9 && str[i] <= 13))
 		++i;
 
-	if (str[i] == '-')
+	if (str[i] == '-'|| str[i] == '+')
 	{
-		sign *= -1;
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
 
@@ -56,6 +29,20 @@ int	ft_atoi(char *str)
 	return (sign * sum);
 }
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
+}
+
 int     is_digit(char *stack)
 {
     int i;
@@ -65,7 +52,7 @@ int     is_digit(char *stack)
     is_neg = 0;
     while (stack[i])
     {
-        if (stack[i] == '-')
+        if (stack[i] == '-' || stack[i] == '+')
             is_neg += 1;
         if (is_neg > 1)
             return (1);
@@ -74,38 +61,4 @@ int     is_digit(char *stack)
         i++;
         }
     return (0);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	is_duplicata(char **argv, int argc)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < argc - 1)
-	{
-		j = i + 1;
-		while (j < argc)
-		{
-			if (ft_strcmp(argv[i], argv[j]) == 0)
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
 }

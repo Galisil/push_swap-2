@@ -27,3 +27,23 @@ void ft_stack_clear(t_stack *stack)
     stack->end = NULL;
     stack->size = 0;
 }
+
+void ft_data_clear(data_verif *verif)
+{
+    verif->bench = 0;
+    verif->disorder = 0;
+    verif->strategy = NULL;
+}
+
+void init_structs(t_stack *a, t_stack *b, data_verif *verif)
+{
+    a->start = NULL;
+    a->size = 0;
+    a->end = NULL;
+    b->start = NULL;
+    b->size = 0;
+    b->end = NULL;
+    verif->strategy = NULL;
+    verif->bench = 0;
+    verif->disorder = 0;
+}
