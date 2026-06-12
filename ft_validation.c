@@ -55,22 +55,25 @@ void ft_extract_flag(char **argv, data_verif *verif)
         }
 }
 
-int	is_duplicata(char **argv, int argc)
+int    is_duplicata(char **argv, int argc)
 {
-	int	i;
-	int	j;
+    int    i;
+    int    j;
 
-	i = 1;
-	while (i < argc - 1)
-	{
-		j = i + 1;
-		while (j < argc)
-		{
-			if (ft_strcmp(argv[i], argv[j]) == 0)
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+    i = 1;
+    while (i < argc - 1)
+    {
+        j = i + 1;
+        while (j < argc)
+        {
+            if((argv[i][1] != '-'  && argv[j][1] != '-'))
+            {
+                    if(ft_atoi(argv[i]) == ft_atoi(argv[j]))
+                        return (1);
+            }
+            j++;
+        }
+        i++;
+    }
+    return (0);
 }
