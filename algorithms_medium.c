@@ -1,95 +1,124 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-// On peut voir l’algo comme :
-
-// phase 1 (A → B)
-
-// “je range grossièrement les valeurs par zones”
-
-// phase 2 (B → A)
-
-// “je reconstruis un tri parfait en choisissant toujours le bon élément”
-// A = chaos initial
-// B = sac de valeurs regroupées
-// A final = ordre reconstruit
-
-void	compute_index(t_stack *a)
+void	compute_index(t_stack *a, int size)
 {
-    int min;
-    int index;
-    t_node  *cursor;
+	int		min;
+	int		index;
+	t_node	*cursor;
+	t_node	*last_min_find;
 
 	index = 0;
-    cursor = a->start;
-    min = cursor->valeur;
-	while (cursor->next != NULL)
-    {
-        cursor->index = index;
-        cursor = cursor->next;
-        index++;
-    }
-    cursor->index = index;
+	while (index < size)
+	{
+		cursor = a->start;
+		while (cursor && cursor->index != -1)
+			cursor = cursor->next;
+		if (!cursor)
+			return ;
+		last_min_find = cursor;
+		min = cursor->valeur;
+		while (cursor)
+		{
+			if ((cursor->valeur < min) && cursor->index == -1)
+			{
+				last_min_find = cursor;
+				min = last_min_find->valeur;
+			}
+			cursor = cursor->next;
+		}
+		last_min_find->index = index;
+		index++;
+	}
 }
 
-void    compute_pos(t_stack *a, int chunk_size, int index)
+void	push_to_b(t_stack *a, t_stack *b, int size, int nb_chunks)
 {
-    int i;
-    int pos;
-    int min;
-    t_node  *cursor;
-    t_node  *start;
+	int	chunk_size;
+	int	min_index;
+	int	max_index;
+	int	nb_pushes;
+	int	j;
 
-    pos = 0;
-    cursor = a->start;
-    min = cursor->valeur;
-    while (cursor->index < index)
-        cursor = cursor->next;
-    start = cursor;
-    while (pos < chunk_size)
-    {
-        cursor = start;
-        i = 0;
-        while (i < chunk_size)
-        {printf("ntm\n");
-            if (cursor->valeur < min)
-            {
-                min = cursor->valeur;
-                cursor->pos_in_chunk = pos;
-            }
-            cursor = cursor->next;
-            i++;
-        }
-        pos++;
-    }
+	chunk_size = (size / nb_chunks) + 1;
+	min_index = 0;
+	max_index = chunk_size;
+	while (a->start)
+	{
+		nb_pushes = 0;
+		while (nb_pushes < chunk_size && a->start)
+		{
+			if (a->start->index <= max_index)
+			{
+				ft_pb(a, b);
+				nb_pushes++;
+			}
+			else
+				ft_ra(a);
+			//voir pour utiliser aussi rb et rra
+		}
+		min_index += chunk_size;
+		max_index += chunk_size;
+	}
+	//printf("b->start = %d\n", b->start->valeur);
 }
+
+// int find_max_pos(t_stack *b)
+// {
+//     t_node *cur;
+//     int max;
+//     int pos;
+//     int max_pos;
+
+//     cur = b->start;
+//     max = cur->valeur;
+//     pos = 1;
+//     max_pos = 1;
+//     while (cur)
+//     {
+//         if (cur->valeur < max)
+//         {
+//             max = cur->valeur;
+//             max_pos = pos;
+//         }
+//         cur = cur->next;
+//         pos++;
+//     }
+//     return (max_pos);
+// }
 
 void	algo_medium(t_stack *a, t_stack *b, int size)
 {
-    int min_rank;
-    int max_rank;
-    int i = 0;
-    t_node  *cursor;
+	int i = 0;      // sert juste pr printf
+	t_node *cursor; //pareil, a supprimer
 
-    cursor = a->start;
-    compute_index(a);
-    // while (i < size - 1)
-    // {
-    //     if (cursor->next != NULL)
-    //         cursor = cursor->next;
-    //     i++;
-    // }
-    compute_pos(a, 10, 10);
-    i = 0;
-    while (i < size - 1)
-    {
-        printf("cursor->pos_in_chunk = %d, val = %d\n", cursor->pos_in_chunk, cursor->valeur);
-        if (cursor->next != NULL)
-            cursor = cursor->next;
-        i++;
-    }
-    //if (size <= 100) : 5-7 chunks
-    //if (size >= 100 et <=500) : 8 a 20 chunks
-    //if (size > 500) : 20 a 50 chunks
-    //taille d’un chunk = n / nb_chunks
+	// cursor = a->start;
+	// compute_index(a, size);
+	// while (cursor->next != NULL)
+	// {
+	// 	printf("cursor->index = %d\n", cursor->index);
+	// 	cursor = cursor->next;
+	// }
+	// printf("dernier cursor->index = %d\n", cursor->index);
+	if (size <= 100)
+		push_to_b(a, b, size, 5);
+	else if (size > 100 && size <= 500)
+		push_to_b(a, b, size, 11);
+	else
+		push_to_b(a, b, size, 20);
+	cursor = b->start;
+	if (!cursor)
+	{
+		printf("b est vide\n");
+		return ;
+	}
+	compute_index(b, size);
+	//while juste pour le test
+	while (cursor->next != NULL)
+	{
+		printf("cursor->index = %d\n", cursor->index);
+		cursor = cursor->next;
+	}
+	printf("dernier cursor->index = %d\n", cursor->index);
+	//compute_index(b, size);
 }
