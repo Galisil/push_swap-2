@@ -62,29 +62,70 @@ void	push_to_b(t_stack *a, t_stack *b, int size, int nb_chunks)
 	}
 }
 
+// void	algo_simple_cpy(t_stack *a, t_stack *b)
+// {
+//     int     i;
+// 	int		pos_in_b;
+// 	t_node	*cursor;
+
+// 	i = 0;
+// 	while (b->start)
+//     {
+//         cursor = b->start;
+// 		pos_in_b = 0;
+//         while (cursor && cursor->index != i)
+// 		{
+// 			cursor = cursor->next;
+// 			pos_in_b++;
+// 		}
+// 		while (pos_in_b > 0)
+//         {
+//             ft_rb(b);
+//             pos_in_b--;
+//         }printf("b->start->val = %d\n", b->start->valeur);
+// 		ft_pa(a, b);
+// 		printf("a->start->val = %d\n", a->start->valeur);
+// 		i++;
+//     }
+// }
+
+int find_max_pos(t_stack *b)
+{
+    t_node *cur;
+    int max;
+    int pos;
+    int max_pos;
+
+    cur = b->start;
+    max = cur->valeur;
+    pos = 0;
+    max_pos = 0;
+    while (cur)
+    {
+        if (cur->valeur > max)
+        {
+            max = cur->valeur;
+            max_pos = pos;
+        }
+        cur = cur->next;
+        pos++;  
+    }
+    return (max_pos);
+}
+
 void	algo_simple_cpy(t_stack *a, t_stack *b)
 {
-    int     i;
-	int		pos_in_b;
-	t_node	*cursor;
+    int     max_pos;
 
-	i = 0;
 	while (b->start)
     {
-        cursor = b->start;
-		pos_in_b = 0;
-        while (cursor && cursor->index != i)
-		{
-			cursor = cursor->next;
-			pos_in_b++;
-		}
-		while (pos_in_b > 0)
+        max_pos = find_max_pos(b);
+        while (max_pos > 0)
         {
             ft_rb(b);
-            pos_in_b--;
+            max_pos--;
         }
-		ft_pa(a, b);
-		i++;
+        ft_pa(a, b);
     }
 }
 
@@ -105,35 +146,11 @@ void	algo_medium(t_stack *a, t_stack *b, int size)
 		printf("b est vide\n");
 		return ;
 	}
-	//while juste pour le test
-	while (cursor->next != NULL)
-	{
-		printf("cursor->valeur = %d\n", cursor->valeur);
-		cursor = cursor->next;
-	}
-	printf("dernier cursor->valeur = %d\n\n\n", cursor->valeur);
-	cursor = b->start;
-
 	while (cursor)
 	{
 		cursor->index = -1;
 		cursor = cursor->next;
 	}
 	compute_index(b, size);
-	//while juste pour le test
-	cursor = b->start;
-	while (cursor->next != NULL)
-	{
-		printf("cursor->index = %d\n", cursor->index);
-		cursor = cursor->next;
-	}
-	printf("dernier cursor->index = %d\n", cursor->index);
 	algo_simple_cpy(a, b);
-	cursor = a->start;
-	while (cursor->next != NULL)
-	{
-		printf("cursor->valeur = %d\n", cursor->valeur);
-		cursor = cursor->next;
-	}
-	printf("dernier cursor->valeur = %d\n\n\n", cursor->valeur);
 }
