@@ -60,46 +60,39 @@ void	push_to_b(t_stack *a, t_stack *b, int size, int nb_chunks)
 		min_index += chunk_size;
 		max_index += chunk_size;
 	}
-	//printf("b->start = %d\n", b->start->valeur);
 }
 
-// int find_max_pos(t_stack *b)
-// {
-//     t_node *cur;
-//     int max;
-//     int pos;
-//     int max_pos;
+void	algo_simple_cpy(t_stack *a, t_stack *b)
+{
+    int     i;
+	int		pos_in_b;
+	t_node	*cursor;
 
-//     cur = b->start;
-//     max = cur->valeur;
-//     pos = 1;
-//     max_pos = 1;
-//     while (cur)
-//     {
-//         if (cur->valeur < max)
-//         {
-//             max = cur->valeur;
-//             max_pos = pos;
-//         }
-//         cur = cur->next;
-//         pos++;
-//     }
-//     return (max_pos);
-// }
+	i = 0;
+	while (b->start)
+    {
+        cursor = b->start;
+		pos_in_b = 0;
+        while (cursor && cursor->index != i)
+		{
+			cursor = cursor->next;
+			pos_in_b++;
+		}
+		while (pos_in_b > 0)
+        {
+            ft_rb(b);
+            pos_in_b--;
+        }
+		ft_pa(a, b);
+		i++;
+    }
+}
 
 void	algo_medium(t_stack *a, t_stack *b, int size)
 {
-	int i = 0;      // sert juste pr printf
-	t_node *cursor; //pareil, a supprimer
+	int i = 0;
+	t_node *cursor;
 
-	// cursor = a->start;
-	// compute_index(a, size);
-	// while (cursor->next != NULL)
-	// {
-	// 	printf("cursor->index = %d\n", cursor->index);
-	// 	cursor = cursor->next;
-	// }
-	// printf("dernier cursor->index = %d\n", cursor->index);
 	if (size <= 100)
 		push_to_b(a, b, size, 5);
 	else if (size > 100 && size <= 500)
@@ -112,13 +105,35 @@ void	algo_medium(t_stack *a, t_stack *b, int size)
 		printf("b est vide\n");
 		return ;
 	}
+	//while juste pour le test
+	while (cursor->next != NULL)
+	{
+		printf("cursor->valeur = %d\n", cursor->valeur);
+		cursor = cursor->next;
+	}
+	printf("dernier cursor->valeur = %d\n\n\n", cursor->valeur);
+	cursor = b->start;
+
+	while (cursor)
+	{
+		cursor->index = -1;
+		cursor = cursor->next;
+	}
 	compute_index(b, size);
 	//while juste pour le test
+	cursor = b->start;
 	while (cursor->next != NULL)
 	{
 		printf("cursor->index = %d\n", cursor->index);
 		cursor = cursor->next;
 	}
 	printf("dernier cursor->index = %d\n", cursor->index);
-	//compute_index(b, size);
+	algo_simple_cpy(a, b);
+	cursor = a->start;
+	while (cursor->next != NULL)
+	{
+		printf("cursor->valeur = %d\n", cursor->valeur);
+		cursor = cursor->next;
+	}
+	printf("dernier cursor->valeur = %d\n\n\n", cursor->valeur);
 }
