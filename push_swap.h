@@ -28,6 +28,7 @@ typedef struct data_ve
 }					data_verif;
 
 t_node				*ft_new_node(int val);
+void				ft_create_stack(char **argv, t_stack *stack, int size);
 void				ft_stack_clear(t_stack *stack);
 void				init_structs(t_stack *a, t_stack *b, data_verif *verif);
 void				ft_data_clear(data_verif *verif);
@@ -58,11 +59,15 @@ void				put_error(void);
 
 float				compute_disorder(t_stack *a);
 void				compute_index(t_stack *a, int size);
-void				compute_pos(t_stack *a, int chunk_size, int index);
+void				push_to_b(t_stack *a, t_stack *b, int nb_chunks);
+//void				compute_pos(t_stack *a, int index);
 
 void				algo_simple(t_stack *a, t_stack *b);
-void				algo_medium(t_stack *a, t_stack *b, int size);
+int					find_min_pos(t_stack *a);
 
+void				algo_medium(t_stack *a, t_stack *b);
+
+void				algo_complex(t_stack *a, t_stack *b);
 void				ft_validation(int argc, char **argv, data_verif *verif,
 						t_stack *a);
 void				ft_extract_flag(char **argv, data_verif *verif);

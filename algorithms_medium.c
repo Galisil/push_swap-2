@@ -13,36 +13,6 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	compute_index(t_stack *a, int size)
-{
-	t_node	*cursor;
-	t_node	*last_min_find;
-	int		min;
-
-	int(index) = 0;
-	while (index < size)
-	{
-		cursor = a->start;
-		while (cursor && cursor->index != -1)
-			cursor = cursor->next;
-		if (!cursor)
-			return ;
-		last_min_find = cursor;
-		min = cursor->valeur;
-		while (cursor)
-		{
-			if ((cursor->valeur < min) && cursor->index == -1)
-			{
-				last_min_find = cursor;
-				min = last_min_find->valeur;
-			}
-			cursor = cursor->next;
-		}
-		last_min_find->index = index;
-		index++;
-	}
-}
-
 void	push_to_b(t_stack *a, t_stack *b, int nb_chunks)
 {
 	int	chunk_size;
@@ -84,14 +54,14 @@ int	find_max_pos(t_stack *b)
 	int		max_pos;
 
 	cur = b->start;
-	max = cur->valeur;
+	max = cur->index;
 	pos = 0;
 	max_pos = 0;
 	while (cur)
 	{
-		if (cur->valeur > max)
+		if (cur->index > max)
 		{
-			max = cur->valeur;
+			max = cur->index;
 			max_pos = pos;
 		}
 		cur = cur->next;
@@ -103,31 +73,33 @@ int	find_max_pos(t_stack *b)
 void	algo_simple_cpy(t_stack *a, t_stack *b)
 {
 	int	max_pos;
-	int	size_b;
+	//int	size_b;
 
+	//size_b = b->size;
 	while (b->start)
 	{
 		max_pos = find_max_pos(b);
 		while (max_pos > 0)
 		{
-			size_b = b->size;
-			if (max_pos <= size_b / 2)
+			if (max_pos <= b->size / 2)
 				ft_rb(b);
 			else
 				ft_rrb(b);
-			max_pos--;
+			max_pos = find_max_pos(b);
 		}
 		ft_pa(a, b);
 	}
 }
 
-void	algo_medium(t_stack *a, t_stack *b, int size)
+void	algo_medium(t_stack *a, t_stack *b)
 {
 	t_node	*cursor;
+	int		a_size;
 
-	if (size <= 100)
+	a_size = a->size;
+	if (a_size <= 100)
 		push_to_b(a, b, 5);
-	else if (size > 100 && size <= 500)
+	else if (a_size > 100 && a_size <= 500)
 		push_to_b(a, b, 11);
 	else
 		push_to_b(a, b, 20);
@@ -142,6 +114,6 @@ void	algo_medium(t_stack *a, t_stack *b, int size)
 		cursor->index = -1;
 		cursor = cursor->next;
 	}
-	compute_index(b, size);
+	compute_index(b, b->size);
 	algo_simple_cpy(a, b);
 }
