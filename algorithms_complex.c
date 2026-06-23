@@ -1,28 +1,31 @@
 #include "push_swap.h"
 
 //(index >> bit) & 1
-void	bit_by_bit(t_stack *a, t_stack *b, int size)
+void	bit_by_bit(t_stack *a, t_stack *b)
 {
 	int		i;
 	int		j;
     int     max_bits;
-	t_node	*cursor;
+	int		size;
+	//t_node	*cursor;
 
     max_bits = 0;
+	size = a->size;
     while ((size - 1) >> max_bits)
-        max_bits++;
-        i = 0;
+		max_bits++;
+	printf("max_bits = %d\n", max_bits);
+    i = 0;
+	compute_index(a, size);
 	while (i < max_bits)
 	{
         j = 0;
-        cursor = a->start;
+		size = a->size;
 		while (j < size)
 		{
-			if (((cursor->index >> i) & 1) == 1)
+			if (((a->start->index >> i) & 1) == 1)
                 ft_ra(a);
             else 
                 ft_pb(a, b);
-            (cursor->index) >> 1;
             j++;
 		}
         while (b->start)
@@ -31,26 +34,26 @@ void	bit_by_bit(t_stack *a, t_stack *b, int size)
 	}
 }
 
-void	algo_complex(t_stack *a, t_stack *b, int size)
+void	algo_complex(t_stack *a, t_stack *b)
 {
 	t_node *cursor;
 
-	compute_index(a, size);
+	//compute_index(a, size);
 	cursor = a->start;
 	while (cursor->next != NULL)
 	{
-		printf("cursor ->index = %d, value = %d\n", cursor->index,
+		printf("cursor ->index = %d, value = %ld\n", cursor->index,
 				cursor->valeur);
 		cursor = cursor->next;
 	}
-	printf("cursor ->index = %d, value = %d\n", cursor->index, cursor->valeur);
-    bit_by_bit(a, b, size);
+	printf("cursor ->index = %d, value = %ld\n", cursor->index, cursor->valeur);
+    bit_by_bit(a, b);
     cursor = a->start;
 	while (cursor->next != NULL)
 	{
-		printf("cursor ->index = %d, value = %d\n", cursor->index,
+		printf("cursor ->index = %d, value = %ld\n", cursor->index,
 				cursor->valeur);
 		cursor = cursor->next;
 	}
-	printf("cursor ->index = %d, value = %d\n", cursor->index, cursor->valeur);
+	printf("cursor ->index = %d, value = %ld\n", cursor->index, cursor->valeur);
 }
