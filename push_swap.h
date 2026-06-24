@@ -23,7 +23,7 @@ typedef struct s_stack
 typedef struct data_ve
 {
 	char			*strategy;
-	int				disorder;
+	float			disorder;
 	int				bench;
 }					data_verif;
 
@@ -68,6 +68,9 @@ int					find_min_pos(t_stack *a);
 void				algo_medium(t_stack *a, t_stack *b);
 
 void				algo_complex(t_stack *a, t_stack *b);
+
+void				algo_adaptive(t_stack *a);
+
 void				ft_validation(int argc, char **argv, data_verif *verif,
 						t_stack *a);
 void				ft_extract_flag(char **argv, data_verif *verif);
