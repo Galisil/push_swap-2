@@ -8,6 +8,7 @@ t_node *ft_new_node(int val)
     if (!new_node)
         return NULL;
     new_node->valeur = val;
+    new_node->index = -1;
     new_node->next = NULL;
     new_node->prev = NULL;
     

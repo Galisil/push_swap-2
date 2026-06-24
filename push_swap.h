@@ -69,7 +69,7 @@ void				algo_medium(t_stack *a, t_stack *b);
 
 void				algo_complex(t_stack *a, t_stack *b);
 
-void				algo_adaptive(t_stack *a);
+void				algo_adaptive(t_stack *a, t_stack *b);
 
 void				ft_validation(int argc, char **argv, data_verif *verif,
 						t_stack *a);
