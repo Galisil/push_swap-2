@@ -6,8 +6,8 @@ void ft_validation(int argc, char **argv, data_verif *verif, t_stack *a)
     long int result;
     i = 1;
     ft_extract_flag(argv, verif);
-    if(is_duplicata(argv, argc) == 0)
-    {
+    //if(is_duplicata(argv, argc) == 0)
+    //{
         while(i < argc)
         {
             if(argv[i][1] != '-')
@@ -19,14 +19,14 @@ void ft_validation(int argc, char **argv, data_verif *verif, t_stack *a)
                     result = ft_atoi(argv[i]);
                     if(result > 2147483647 || result < -2147483648)
                         put_error();
-                    ft_add_back(a, (ft_new_node(result)));
+                    //ft_add_back(a, (ft_new_node(result))); duplique la pile a, on create deja la stack dans le main avec create_stack
                 }
             }
             i++;
         }
-    }
-    else
-        put_error();
+    //}
+    //else
+      //  put_error();
 }
 
 void ft_extract_flag(char **argv, data_verif *verif)

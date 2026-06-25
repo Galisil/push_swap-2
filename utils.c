@@ -1,5 +1,17 @@
 #include "push_swap.h"
 
+bench_el *init_new_bench_el(char *name_op)
+{
+    bench_el *new_bench_el;
+
+    new_bench_el = malloc(sizeof(bench_el));
+    if (!new_bench_el)
+        return NULL;
+    new_bench_el->name_op = name_op;
+	new_bench_el->nb_op = 0;
+    return (new_bench_el);
+}
+
 void	compute_index(t_stack *a, int size)
 {
 	t_node	*cursor;
