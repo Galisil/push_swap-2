@@ -43,7 +43,9 @@ void	algo_simple(t_stack *a, t_stack *b, bench_el *benchmark_tab)
 				update_nb_op("pb", benchmark_tab);
 	}
 	while (b->start)
+	{
 		ft_pa(a, b);
 		if (benchmark_tab)
 				update_nb_op("pa", benchmark_tab);
+	}
 }
