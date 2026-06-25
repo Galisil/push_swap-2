@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
 //(index >> bit) & 1
-void	bit_by_bit(t_stack *a, t_stack *b)
+void	bit_by_bit(t_stack *a, t_stack *b, bench_el *benchmark_tab)
 {
 	int		i;
 	int		j;
@@ -22,18 +22,30 @@ void	bit_by_bit(t_stack *a, t_stack *b)
 		while (j < a_size)
 		{
 			if (((a->start->index >> i) & 1) == 1)
+			{
 				ft_ra(a);
-            else 
+				if (benchmark_tab)
+					update_nb_op("ra", benchmark_tab);
+			}
+            else
+			{
                 ft_pb(a, b);
+				if (benchmark_tab)
+					update_nb_op("pb", benchmark_tab);
+			}
             j++;
 		}
         while (b->start)
+		{
             ft_pa(a, b);
+			if (benchmark_tab)
+					update_nb_op("pa", benchmark_tab);
+		}
         i++;
 	}
 }
 
-void	algo_complex(t_stack *a, t_stack *b)
+void	algo_complex(t_stack *a, t_stack *b, bench_el *benchmark_tab)
 {
 	// t_node *cursor;
 
@@ -45,7 +57,7 @@ void	algo_complex(t_stack *a, t_stack *b)
 	// 	cursor = cursor->next;
 	// }
 	//printf("cursor ->index = %d, value = %ld\n", cursor->index, cursor->valeur);
-    bit_by_bit(a, b);
+    bit_by_bit(a, b, benchmark_tab);
     // cursor = a->start;
 	// while (cursor->next != NULL)
 	// {

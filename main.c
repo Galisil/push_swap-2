@@ -104,20 +104,22 @@ int	main(int argc, char **argv)
 	ft_validation(argc, argv, &verif, &a);
 	if (verif.bench == 1)
 	{
-		benchmark_tab = malloc(sizeof(bench_el) * 12);
+		benchmark_tab = malloc(sizeof(bench_el) * 11);
 		if (!benchmark_tab)
 			return (-1);
-		benchmark(&a, &b, &verif, &benchmark_tab);
-	}
-	i = 0;
-	while (i < 12)
-	{
-		printf("benchmarktab[i] : name_op = %s, nb_op = %d\n",
-				benchmark_tab[i].name_op, benchmark_tab[i].nb_op);
-		i++;
+		benchmark(&a, &b, &verif, benchmark_tab);
 	}
 	tmp = a.start;
-	algo_adaptive(&a, &b, &verif, &benchmark_tab);
+	algo_adaptive(&a, &b, &verif, benchmark_tab);
+	i = 0;
+	while (i < 11)
+	{
+		printf("benchmarktab[%d] : name_op = %s, nb_op = %d\n",
+				i,
+				benchmark_tab[i].name_op,
+				benchmark_tab[i].nb_op);
+		i++;
+	}
 	printf("stack rangÃ©e : \n");
 	tmp = a.start;
 	while (tmp)

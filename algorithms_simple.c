@@ -24,8 +24,7 @@ int	find_min_pos(t_stack *a)
 	return (min_pos);
 }
 
-void	algo_simple(t_stack *a, t_stack *b, data_verif *verif,
-		bench_el **benchmark_tab)
+void	algo_simple(t_stack *a, t_stack *b, bench_el *benchmark_tab)
 {
 	int min_pos;
 
@@ -40,7 +39,11 @@ void	algo_simple(t_stack *a, t_stack *b, data_verif *verif,
 			min_pos--;
 		}
 		ft_pb(a, b);
+		if (benchmark_tab)
+				update_nb_op("pb", benchmark_tab);
 	}
 	while (b->start)
 		ft_pa(a, b);
+		if (benchmark_tab)
+				update_nb_op("pa", benchmark_tab);
 }

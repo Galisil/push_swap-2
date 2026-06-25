@@ -13,7 +13,8 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	push_to_b(t_stack *a, t_stack *b, int nb_chunks)
+void	push_to_b(t_stack *a, t_stack *b, int nb_chunks,
+		bench_el *benchmark_tab)
 {
 	int	chunk_size;
 	int	min_index;
@@ -34,12 +35,22 @@ void	push_to_b(t_stack *a, t_stack *b, int nb_chunks)
 			if (a->start->index <= max_index)
 			{
 				ft_pb(a, b);
+				if (benchmark_tab)
+					update_nb_op("pb", benchmark_tab);
 				nb_pushes++;
 			}
 			else if (a->start->index <= a_size / 2)
+			{
 				ft_ra(a);
+				if (benchmark_tab)
+					update_nb_op("ra", benchmark_tab);
+			}
 			else
+			{
 				ft_rra(a);
+				if (benchmark_tab)
+					update_nb_op("rra", benchmark_tab);
+			}
 		}
 		min_index += chunk_size;
 		max_index += chunk_size;
@@ -70,11 +81,11 @@ int	find_max_pos(t_stack *b)
 	return (max_pos);
 }
 
-void	algo_simple_cpy(t_stack *a, t_stack *b)
+void	algo_simple_cpy(t_stack *a, t_stack *b, bench_el *benchmark_tab)
 {
 	int	max_pos;
-	//int	size_b;
 
+	//int	size_b;
 	//size_b = b->size;
 	while (b->start)
 	{
@@ -82,27 +93,37 @@ void	algo_simple_cpy(t_stack *a, t_stack *b)
 		while (max_pos > 0)
 		{
 			if (max_pos <= b->size / 2)
+			{
 				ft_rb(b);
+				if (benchmark_tab)
+					update_nb_op("ra", benchmark_tab);
+			}
 			else
+			{
 				ft_rrb(b);
+				if (benchmark_tab)
+					update_nb_op("rrb", benchmark_tab);
+			}
 			max_pos = find_max_pos(b);
 		}
 		ft_pa(a, b);
+		if (benchmark_tab)
+					update_nb_op("pa", benchmark_tab);
 	}
 }
 
-void	algo_medium(t_stack *a, t_stack *b)
+void	algo_medium(t_stack *a, t_stack *b, bench_el *benchmark_tab)
 {
 	t_node	*cursor;
 	int		a_size;
 
 	a_size = a->size;
 	if (a_size <= 100)
-		push_to_b(a, b, 5);
+		push_to_b(a, b, 5, benchmark_tab);
 	else if (a_size > 100 && a_size <= 500)
-		push_to_b(a, b, 11);
+		push_to_b(a, b, 11, benchmark_tab);
 	else
-		push_to_b(a, b, 20);
+		push_to_b(a, b, 20, benchmark_tab);
 	cursor = b->start;
 	if (!cursor)
 	{
@@ -115,5 +136,5 @@ void	algo_medium(t_stack *a, t_stack *b)
 		cursor = cursor->next;
 	}
 	compute_index(b, b->size);
-	algo_simple_cpy(a, b);
+	algo_simple_cpy(a, b, benchmark_tab);
 }
