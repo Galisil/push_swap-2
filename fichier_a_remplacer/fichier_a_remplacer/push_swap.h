@@ -27,12 +27,6 @@ typedef struct data_ve
 	int				bench;
 }					data_verif;
 
-typedef struct benchmark_elem
-{
-	char			*name_op;
-	int				nb_op;
-}					bench_el;
-
 t_node				*ft_new_node(int val);
 void				ft_create_stack(char **argv, t_stack *stack, int size);
 void				ft_stack_clear(t_stack *stack);
@@ -65,30 +59,21 @@ void				put_error(void);
 
 float				compute_disorder(t_stack *a);
 void				compute_index(t_stack *a, int size);
-void				push_to_b(t_stack *a, t_stack *b, int nb_chunks, bench_el *benchmark_tab);
+void				push_to_b(t_stack *a, t_stack *b, int nb_chunks);
+//void				compute_pos(t_stack *a, int index);
 
-void				algo_simple(t_stack *a, t_stack *b,
-						bench_el *benchmark_tab);
+void				algo_simple(t_stack *a, t_stack *b);
 int					find_min_pos(t_stack *a);
 
-void				algo_medium(t_stack *a, t_stack *b,
-						bench_el *benchmark_tab);
+void				algo_medium(t_stack *a, t_stack *b);
 
-void				algo_complex(t_stack *a, t_stack *b,
-						bench_el *benchmark_tab);
+void				algo_complex(t_stack *a, t_stack *b);
 
-void				algo_adaptive(t_stack *a, t_stack *b, data_verif *verif,
-						bench_el *benchmark_tab);
+void				algo_adaptive(t_stack *a, t_stack *b);
 
 void				ft_validation(int argc, char **argv, data_verif *verif,
 						t_stack *a);
 void				ft_extract_flag(char **argv, data_verif *verif);
-
-void				benchmark(t_stack *a, t_stack *b, data_verif *verif,
-						bench_el *benchmark_tab);
-bench_el			init_new_bench_el(char *name_op);
-void				tabs_init(bench_el *benchmark_tab);
-void				update_nb_op(char *operation, bench_el *benchmark_tab);
 
 int					main(int argc, char **argv);
 

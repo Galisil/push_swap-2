@@ -23,7 +23,7 @@ void	bit_by_bit(t_stack *a, t_stack *b, bench_el *benchmark_tab)
 		{
 			if (((a->start->index >> i) & 1) == 1)
 			{
-				ft_ra(a, 0);
+				ft_ra(a);
 				if (benchmark_tab)
 					update_nb_op("ra", benchmark_tab);
 			}

@@ -33,7 +33,7 @@ void	algo_simple(t_stack *a, t_stack *b, bench_el *benchmark_tab)
 		min_pos = find_min_pos(a);
 		while (min_pos > 1)
 		{
-			ft_ra(a);
+			ft_ra(a, 0);
 			if (benchmark_tab)
 				update_nb_op("ra", benchmark_tab);
 			min_pos--;

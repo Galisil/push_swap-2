@@ -87,6 +87,21 @@
 // 	return (0);
 // }
 
+void	display_bench(data_verif verif, bench_el *benchmark_tab)
+{
+	int	i;
+
+	printf("disorder = %.1f\n", verif.disorder);
+	i = 0;
+	while (verif.bench == 1 && i < 11)
+	{
+		printf("%s, nb_op = %d\n",
+				benchmark_tab[i].name_op,
+				benchmark_tab[i].nb_op);
+		i++;
+	}
+}
+
 //test algo_adaptive
 int	main(int argc, char **argv)
 {
@@ -95,7 +110,6 @@ int	main(int argc, char **argv)
 	t_node		*tmp;
 	data_verif	verif;
 	bench_el	*benchmark_tab;
-	int			i;
 
 	ft_create_stack(argv, &a, argc);
 	b.start = NULL;
@@ -111,15 +125,7 @@ int	main(int argc, char **argv)
 	}
 	tmp = a.start;
 	algo_adaptive(&a, &b, &verif, benchmark_tab);
-	i = 0;
-	while (i < 11)
-	{
-		printf("benchmarktab[%d] : name_op = %s, nb_op = %d\n",
-				i,
-				benchmark_tab[i].name_op,
-				benchmark_tab[i].nb_op);
-		i++;
-	}
+	//montrer les nombres tries
 	printf("stack rangÃ©e : \n");
 	tmp = a.start;
 	while (tmp)
@@ -129,13 +135,10 @@ int	main(int argc, char **argv)
 			printf(", ");
 		tmp = tmp->next;
 	}
+	printf("\n");
+	//////
+	printf("strategy used = %s\n", verif.strategy);
+	if (verif.bench == 1)
+		display_bench(verif, benchmark_tab);
+	return (0);
 }
-
-// //verif index
-// 	tmp = a.start;
-// 	while (tmp->next)
-// 	{
-// 		printf("index de %ld = %d\n", tmp->valeur, tmp->index);
-// 		tmp = tmp->next;
-// 	}
-// 	printf("index de %ld = %d\n", tmp->valeur, tmp->index);
